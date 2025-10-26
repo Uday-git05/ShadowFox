@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSK Champions Hub</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffeb3b, #ffc107);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .redirect-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .csk-logo {
+            width: 80px;
+            height: 80px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border: 3px solid #ffc107;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ffeb3b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .redirect-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .manual-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ffeb3b;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .manual-link:hover {
+            background: #ffc107;
+        }
+    </style>
+
+    <script type="module"
+        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fcskchampi6711back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+    <script type="module" src="https://static.rocket.new/rocket-shot.js?v=0.0.1"></script>
+</head>
+
+<body>
+    <div class="redirect-container">
+        <div class="csk-logo">CSK</div>
+        <h1>CSK Champions Hub</h1>
+        <p class="subtitle">Welcome to the Ultimate Chennai Super Kings Experience</p>
+        <div class="loading-spinner"></div>
+        <p class="redirect-text">Redirecting to homepage...</p>
+        <a href="pages/homepage.html" class="manual-link">Click here if not redirected automatically</a>
+    </div>
+
+    <script>
+        // Redirect to homepage after 3 seconds
+        setTimeout(function () {
+            window.location.href = 'pages/homepage.html';
+        }, 3000);
+
+        // Fallback redirect on page load
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+                    window.location.href = 'pages/homepage.html';
+                }
+            }, 3000);
+        });
+    </script>
+    <script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
+</body>
+
+</html>
