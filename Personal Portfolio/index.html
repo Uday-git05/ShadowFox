@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uday's Portfolio</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#58a6ff',
+                        'secondary-dark': '#161b22',
+                        'card-bg': '#161b22',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="antialiased">
+
+
+    <header class="sticky top-0 z-50 bg-secondary-dark/95 backdrop-blur-sm shadow-lg border-b border-primary-blue/20">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <a href="#home" class="text-2xl font-bold text-primary-blue hover:text-white transition">UD</a>
+
+
+            <button id="navToggle" aria-expanded="false"
+                class="sm:hidden p-2 rounded-md text-gray-200 hover:bg-primary-blue/10 focus:outline-none"
+                aria-label="Toggle navigation">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+
+            <div id="navMenu" class="hidden sm:flex space-x-4 items-center">
+                <a href="#skills"
+                    class="text-white hover:text-primary-blue px-3 py-2 rounded-lg text-sm font-medium">Skills</a>
+                <a href="#projects"
+                    class="text-white hover:text-primary-blue px-3 py-2 rounded-lg text-sm font-medium">Projects</a>
+                <a href="#resume"
+                    class="text-white hover:text-primary-blue px-3 py-2 rounded-lg text-sm font-medium">Resume</a>
+                <a href="#contact"
+                    class="text-white bg-primary-blue hover:bg-blue-600 px-3 py-2 rounded-lg text-sm font-medium shadow-md">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+
+        <section id="home" class="min-h-screen flex items-center pt-24 pb-12">
+            <div class="max-w-4xl mx-auto text-center">
+
+
+                <h1 class="text-5xl sm:text-6xl font-extrabold mb-4 leading-tight text-white">
+                    <span class="text-primary-blue"> Hi, I'm Uday</span>
+                </h1>
+                <p class="text-xl sm:text-2xl mb-6 text-gray-400">
+                    AI & ML Enthusiast | Building intelligent and data-driven solutions.
+                </p>
+
+                <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-8">
+                    3rd-year AI & ML engineering student focused on combining web technologies with
+                    machine learning to craft smart and scalable solutions.Dedicated to learning how data, algorithms,
+                    and web systems come together to solve real-world challenges.
+                </p>
+
+                <div class="flex justify-center space-x-4">
+                    <a href="#projects"
+                        class="px-8 py-3 text-lg font-semibold rounded-xl bg-primary-blue text-white hover:bg-blue-600 transition transform hover:scale-105 shadow-lg">
+                        View My Work
+                    </a>
+                    <a href="#contact"
+                        class="px-8 py-3 text-lg font-semibold rounded-xl border-2 border-primary-blue text-primary-blue hover:bg-primary-blue/10 transition transform hover:scale-105">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="py-20 border-t border-secondary-dark">
+            <h2 class="section-title text-center mx-auto">Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <!-- Frontend -->
+                <div
+                    class="bg-card-bg p-6 rounded-2xl shadow-2xl border border-primary-blue/20 transform hover:scale-[1.02] transition">
+                    <h3 class="text-2xl font-bold mb-4 text-primary-blue flex items-center">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        Frontend
+                    </h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>React & Redux</li>
+                        <li>html</li>
+                        <li>CSS</li>
+                        <li>javascript</li>
+                        <li>TypeScript</li>
+                    </ul>
+                </div>
+
+                <!-- Backend -->
+                <div
+                    class="bg-card-bg p-6 rounded-2xl shadow-2xl border border-primary-blue/20 transform hover:scale-[1.02] transition">
+                    <h3 class="text-2xl font-bold mb-4 text-primary-blue flex items-center">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 7v10m-4-10h20m-4-4h4v4m-4 4h4v4m-4 4h4v4M6 12h2m-2 0h2m-2 0h2m-2 0h2"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 12a8 8 0 1116 0A8 8 0 014 12z"></path>
+                        </svg>
+                        Backend & DB
+                    </h3>
+                    <ul class="space-y-3 text-gray-300">
+
+                        <li>Python (Flask/Django)</li>
+                        <li>SQL (PostgreSQL)</li>
+                        <li>NoSQL (MongoDB, Firestore)</li>
+
+                    </ul>
+                </div>
+
+                <!-- Tools & DevOps -->
+                <div
+                    class="bg-card-bg p-6 rounded-2xl shadow-2xl border border-primary-blue/20 transform hover:scale-[1.02] transition">
+                    <h3 class="text-2xl font-bold mb-4 text-primary-blue flex items-center">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6V4m0 2v-2m0 2h-2m2 0h2m4.162-1.248a3 3 0 00-4.324 0M10 20v-2m0 2v-2m0 2h-2m2 0h2m4.162-1.248a3 3 0 00-4.324 0M21 12h-2m2 0h-2M12 6a3 3 0 00-3-3H6a3 3 0 00-3 3v2a3 3 0 003 3h3a3 3 0 003-3V6zM18 18a3 3 0 00-3-3h-3a3 3 0 00-3 3v2a3 3 0 003 3h3a3 3 0 003-3v-2z">
+                            </path>
+                        </svg>
+                        Tools & DevOps
+                    </h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>Git & GitHub</li>
+
+
+                        <li>CI/CD (GitHub Actions)</li>
+                        <li>Agile/Scrum</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="py-20 border-t border-secondary-dark">
+            <h2 class="section-title text-center mx-auto">Portfolio Projects</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
+                <div class="bg-card-bg p-6 rounded-2xl shadow-2xl border border-primary-blue/20">
+                    <h3 class="text-2xl font-bold text-white mb-2">E-Commerce Platform Redesign</h3>
+                    <p class="text-primary-blue font-medium mb-3">React, Redux, Node.js, PostgreSQL</p>
+                    <p class="text-gray-400 mb-4">Led a complete migration of a legacy e-commerce system, reducing page
+                        load times and increasing conversions.</p>
+                    <a href="#"
+                        class="inline-block px-4 py-2 text-sm font-semibold rounded-full bg-primary-blue text-white hover:bg-blue-600 transition">View
+                        Live Demo</a>
+                </div>
+
+                <div class="bg-card-bg p-6 rounded-2xl shadow-2xl border border-primary-blue/20">
+                    <h3 class="text-2xl font-bold text-white mb-2">Real-Time Data Dashboard</h3>
+                    <p class="text-primary-blue font-medium mb-3">Vue.js, WebSockets, Python Flask</p>
+                    <p class="text-gray-400 mb-4">Developed a real-time dashboard for logistics tracking; handled high
+                        update rates with WebSockets.</p>
+                    <a href="#"
+                        class="inline-block px-4 py-2 text-sm font-semibold rounded-full bg-primary-blue text-white hover:bg-blue-600 transition">View
+                        Source Code</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume -->
+        <section id="resume" class="py-20 border-t border-secondary-dark text-center">
+            <h2 class="section-title mx-auto">Resume / CV</h2>
+            <div class="max-w-3xl mx-auto bg-card-bg p-8 rounded-2xl shadow-2xl border border-primary-blue/20">
+                <p class="text-lg text-gray-300 mb-6">A detailed breakdown of my professional experience is available in
+                    my full resume.</p>
+                <a href="assets/resume.pdf" target="_blank"
+                    class="inline-flex items-center px-10 py-4 text-xl font-bold rounded-xl bg-primary-blue text-white hover:bg-blue-600 transition transform hover:scale-105 shadow-xl">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download Full CV (PDF)
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-20 border-t border-secondary-dark">
+            <h2 class="section-title text-center mx-auto">Get In Touch</h2>
+            <div class="max-w-2xl mx-auto bg-card-bg p-8 rounded-2xl shadow-2xl border border-primary-blue/20">
+                <p class="text-lg text-gray-300 mb-6 text-center">I'm currently available for new opportunities. Feel
+                    free to reach out!</p>
+
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="mt-1 block w-full p-3 rounded-lg border border-gray-600 bg-secondary-dark focus:border-primary-blue focus:ring-primary-blue text-white">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="mt-1 block w-full p-3 rounded-lg border border-gray-600 bg-secondary-dark focus:border-primary-blue focus:ring-primary-blue text-white">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400">Message</label>
+                        <textarea id="message" name="message" rows="4" required
+                            class="mt-1 block w-full p-3 rounded-lg border border-gray-600 bg-secondary-dark focus:border-primary-blue focus:ring-primary-blue text-white"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full px-6 py-3 text-lg font-semibold rounded-xl bg-primary-blue text-white hover:bg-blue-600 transition shadow-lg">Send
+                        Message</button>
+                    <p class="text-xs text-gray-500 pt-2 text-center">*Note: This is a static form demo and won't send
+                        an email without a backend.</p>
+                </form>
+
+                <div id="formMessage" class="hidden mt-4 text-center text-green-400"></div>
+
+                <div class="mt-8 pt-6 border-t border-gray-700 text-center">
+                    <p class="text-gray-400 mb-2">Direct Contact:</p>
+                    <p class="text-xl font-bold text-primary-blue">Uday@gmail.com</p>
+                    <!-- type="button" to avoid accidental form submit -->
+                    <button id="copyEmail" type="button"
+                        class="mt-2 text-sm text-gray-400 hover:text-white transition">(Click to Copy)</button>
+                    <div id="copyMessage" class="hidden text-green-400 text-sm mt-1">Copied!</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-dark py-6 border-t border-primary-blue/20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Uday. All rights reserved. Built with HTML & Tailwind CSS.
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="js/script.js" defer></script>
+</body>
+
+</html>
