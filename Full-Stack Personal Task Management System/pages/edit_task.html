@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task - TaskFlow Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script type="module"
+        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftaskflowm4073back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"></script>
+    <script type="module" src="https://static.rocket.new/rocket-shot.js?v=0.0.1"></script>
+</head>
+
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900">TaskFlow Manager</h1>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="task_dashboard.html"
+                        class="text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">Dashboard</a>
+                    <a href="create_task.html"
+                        class="text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">Create
+                        Task</a>
+                    <a href="task_statistics.html"
+                        class="text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">Statistics</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-600 hover:text-primary p-2" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="task_dashboard.html"
+                    class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md">Dashboard</a>
+                <a href="create_task.html"
+                    class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md">Create Task</a>
+                <a href="task_statistics.html"
+                    class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md">Statistics</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="task_dashboard.html"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Edit Task</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Edit Task</h1>
+                    <p class="mt-2 text-gray-600">Modify task details and update information</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="showDeleteConfirmation()"
+                        class="bg-error text-white px-4 py-2 rounded-md font-medium hover:bg-error-600 transition-colors">
+                        <i class="fas fa-trash mr-2"></i>Delete Task
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Edit Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-task border border-gray-200 p-6">
+                    <form id="editTaskForm" onsubmit="updateTask(event)">
+                        <!-- Task Title -->
+                        <div class="mb-6">
+                            <label for="taskTitle" class="block text-sm font-medium text-gray-700 mb-2">
+                                Task Title <span class="text-error">*</span>
+                            </label>
+                            <input type="text" id="taskTitle" name="taskTitle" required class="form-input"
+                                value="Complete React Component Documentation" placeholder="Enter task title">
+                            <div id="titleError" class="hidden text-error text-sm mt-1">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                Task title is required
+                            </div>
+                        </div>
+
+                        <!-- Task Description -->
+                        <div class="mb-6">
+                            <label for="taskDescription" class="block text-sm font-medium text-gray-700 mb-2">
+                                Description
+                            </label>
+                            <textarea id="taskDescription" name="taskDescription" rows="4"
+                                class="form-input resize-none"
+                                placeholder="Enter task description">Finalize the documentation for all React components in the project, including props, usage examples, and best practices. This includes updating the component library with proper TypeScript definitions and ensuring all examples are working correctly.</textarea>
+                        </div>
+
+                        <!-- Priority and Due Date Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- Priority -->
+                            <div>
+                                <label for="taskPriority" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Priority <span class="text-error">*</span>
+                                </label>
+                                <select id="taskPriority" name="taskPriority" required class="form-input">
+                                    <option value="">Select priority</option>
+                                    <option value="low">Low Priority</option>
+                                    <option value="medium">Medium Priority</option>
+                                    <option value="high" selected>High Priority</option>
+                                </select>
+                            </div>
+
+                            <!-- Due Date -->
+                            <div>
+                                <label for="taskDueDate" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Due Date <span class="text-error">*</span>
+                                </label>
+                                <input type="date" id="taskDueDate" name="taskDueDate" required class="form-input"
+                                    value="2025-11-02">
+                            </div>
+                        </div>
+
+                        <!-- Category and Status Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- Category -->
+                            <div>
+                                <label for="taskCategory" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Category
+                                </label>
+                                <select id="taskCategory" name="taskCategory" class="form-input">
+                                    <option value="">Select category</option>
+                                    <option value="work" selected>Work</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="study">Study</option>
+                                    <option value="project">Project</option>
+                                    <option value="meeting">Meeting</option>
+                                </select>
+                            </div>
+
+                            <!-- Status -->
+                            <div>
+                                <label for="taskStatus" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Status
+                                </label>
+                                <select id="taskStatus" name="taskStatus" class="form-input">
+                                    <option value="pending" selected>Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="mb-6">
+                            <label for="taskTags" class="block text-sm font-medium text-gray-700 mb-2">
+                                Tags
+                            </label>
+                            <input type="text" id="taskTags" name="taskTags" class="form-input"
+                                value="documentation, react, frontend" placeholder="Enter tags separated by commas">
+                            <p class="text-sm text-gray-500 mt-1">Separate tags with commas</p>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="mb-8">
+                            <label for="taskNotes" class="block text-sm font-medium text-gray-700 mb-2">
+                                Additional Notes
+                            </label>
+                            <textarea id="taskNotes" name="taskNotes" rows="3" class="form-input resize-none"
+                                placeholder="Add any additional notes or comments">Need to coordinate with the design team for component specifications. Also ensure all accessibility guidelines are followed.</textarea>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
+                            <button type="button" onclick="cancelEdit()"
+                                class="w-full sm:w-auto px-6 py-2 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" class="w-full sm:w-auto btn-primary px-6 py-2">
+                                <i class="fas fa-save mr-2"></i>Update Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Task Information Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Task History -->
+                <div class="bg-white rounded-lg shadow-task border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Task History</h3>
+
+                    <div class="space-y-4">
+                        <!-- Created -->
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-plus text-primary text-sm"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900">Task Created</p>
+                                <p class="text-sm text-gray-500">October 28, 2025 at 2:30 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Last Modified -->
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-warning-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-edit text-warning text-sm"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900">Last Modified</p>
+                                <p class="text-sm text-gray-500">October 30, 2025 at 4:15 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Status Changes -->
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-secondary-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-clock text-secondary text-sm"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900">Status: Pending</p>
+                                <p class="text-sm text-gray-500">No completion date yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Statistics -->
+                <div class="bg-white rounded-lg shadow-task border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Task Details</h3>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Task ID</span>
+                            <span class="text-sm font-medium text-gray-900 font-mono">#TSK-001</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Days Remaining</span>
+                            <span class="text-sm font-medium text-warning">2 days</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Time Spent</span>
+                            <span class="text-sm font-medium text-gray-900">3.5 hours</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Estimated Time</span>
+                            <span class="text-sm font-medium text-gray-900">6 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-task border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+
+                    <div class="space-y-3">
+                        <button onclick="duplicateTask()"
+                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            <i class="fas fa-copy mr-2 text-gray-400"></i>Duplicate Task
+                        </button>
+                        <button onclick="archiveTask()"
+                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            <i class="fas fa-archive mr-2 text-gray-400"></i>Archive Task
+                        </button>
+                        <button onclick="shareTask()"
+                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            <i class="fas fa-share mr-2 text-gray-400"></i>Share Task
+                        </button>
+                        <button onclick="exportTask()"
+                            class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            <i class="fas fa-download mr-2 text-gray-400"></i>Export Task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="hidden modal-overlay">
+        <div class="modal-content">
+            <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-error-100 rounded-full">
+                <i class="fas fa-exclamation-triangle text-error text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Delete Task</h3>
+            <p class="text-gray-600 text-center mb-6">Are you sure you want to delete this task? This action cannot be
+                undone.</p>
+
+            <div class="flex gap-3 justify-end">
+                <button onclick="hideDeleteConfirmation()"
+                    class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button onclick="confirmDelete()"
+                    class="px-4 py-2 bg-error text-white rounded-md font-medium hover:bg-error-600 transition-colors">
+                    Delete Task
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unsaved Changes Warning Modal -->
+    <div id="unsavedModal" class="hidden modal-overlay">
+        <div class="modal-content">
+            <div class="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-warning-100 rounded-full">
+                <i class="fas fa-exclamation-triangle text-warning text-xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Unsaved Changes</h3>
+            <p class="text-gray-600 text-center mb-6">You have unsaved changes. Are you sure you want to leave without
+                saving?</p>
+
+            <div class="flex gap-3 justify-end">
+                <button onclick="hideUnsavedModal()"
+                    class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors">
+                    Stay
+                </button>
+                <button onclick="discardChanges()"
+                    class="px-4 py-2 bg-warning text-white rounded-md font-medium hover:bg-warning-600 transition-colors">
+                    Discard Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast"
+        class="hidden fixed top-4 right-4 bg-success text-white px-6 py-3 rounded-lg shadow-elevated z-50">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Task updated successfully!</span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let hasUnsavedChanges = false;
+        let originalFormData = {};
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Initialize form tracking
+        document.addEventListener('DOMContentLoaded', function () {
+            // Store original form data
+            const form = document.getElementById('editTaskForm');
+            const formData = new FormData(form);
+            for (let [key, value] of formData.entries()) {
+                originalFormData[key] = value;
+            }
+
+            // Track form changes
+            form.addEventListener('input', function () {
+                checkForChanges();
+            });
+
+            // Prevent accidental navigation
+            window.addEventListener('beforeunload', function (e) {
+                if (hasUnsavedChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+        });
+
+        // Check for form changes
+        function checkForChanges() {
+            const form = document.getElementById('editTaskForm');
+            const currentFormData = new FormData(form);
+            let hasChanges = false;
+
+            for (let [key, value] of currentFormData.entries()) {
+                if (originalFormData[key] !== value) {
+                    hasChanges = true;
+                    break;
+                }
+            }
+
+            hasUnsavedChanges = hasChanges;
+
+            // Visual indicator for unsaved changes
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (hasChanges) {
+                submitButton.classList.add('bg-warning', 'hover:bg-warning-600');
+                submitButton.classList.remove('btn-primary');
+                submitButton.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Save Changes';
+            } else {
+                submitButton.classList.remove('bg-warning', 'hover:bg-warning-600');
+                submitButton.classList.add('btn-primary');
+                submitButton.innerHTML = '<i class="fas fa-save mr-2"></i>Update Task';
+            }
+        }
+
+        // Update task
+        function updateTask(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Validate required fields
+            const title = formData.get('taskTitle').trim();
+            const priority = formData.get('taskPriority');
+            const dueDate = formData.get('taskDueDate');
+
+            if (!title) {
+                showFieldError('titleError');
+                return;
+            }
+
+            if (!priority || !dueDate) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Simulate API call
+            setTimeout(() => {
+                hasUnsavedChanges = false;
+                showSuccessToast();
+
+                // Update original form data
+                for (let [key, value] of formData.entries()) {
+                    originalFormData[key] = value;
+                }
+
+                // Reset button appearance
+                checkForChanges();
+
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = 'task_dashboard.html';
+                }, 1500);
+            }, 500);
+        }
+
+        // Show field error
+        function showFieldError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.classList.remove('hidden');
+            setTimeout(() => {
+                errorElement.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            if (hasUnsavedChanges) {
+                showUnsavedModal();
+            } else {
+                window.location.href = 'task_dashboard.html';
+            }
+        }
+
+        // Delete confirmation
+        function showDeleteConfirmation() {
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function hideDeleteConfirmation() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        function confirmDelete() {
+            // Simulate deletion
+            hideDeleteConfirmation();
+            showSuccessToast('Task deleted successfully!');
+            setTimeout(() => {
+                window.location.href = 'task_dashboard.html';
+            }, 1500);
+        }
+
+        // Unsaved changes modal
+        function showUnsavedModal() {
+            document.getElementById('unsavedModal').classList.remove('hidden');
+        }
+
+        function hideUnsavedModal() {
+            document.getElementById('unsavedModal').classList.add('hidden');
+        }
+
+        function discardChanges() {
+            hasUnsavedChanges = false;
+            hideUnsavedModal();
+            window.location.href = 'task_dashboard.html';
+        }
+
+        // Quick actions
+        function duplicateTask() {
+            const form = document.getElementById('editTaskForm');
+            const formData = new FormData(form);
+
+            // Store form data in localStorage for create page
+            const taskData = {};
+            for (let [key, value] of formData.entries()) {
+                taskData[key] = value;
+            }
+            taskData.taskTitle = taskData.taskTitle + ' (Copy)';
+
+            localStorage.setItem('duplicateTaskData', JSON.stringify(taskData));
+            window.location.href = 'create_task.html?duplicate=true';
+        }
+
+        function archiveTask() {
+            if (confirm('Are you sure you want to archive this task?')) {
+                showSuccessToast('Task archived successfully!');
+                setTimeout(() => {
+                    window.location.href = 'task_dashboard.html';
+                }, 1500);
+            }
+        }
+
+        function shareTask() {
+            // Simulate sharing functionality
+            if (navigator.share) {
+                navigator.share({
+                    title: 'TaskFlow Manager - Task',
+                    text: 'Check out this task: Complete React Component Documentation',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback - copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    showSuccessToast('Task link copied to clipboard!');
+                });
+            }
+        }
+
+        function exportTask() {
+            const form = document.getElementById('editTaskForm');
+            const formData = new FormData(form);
+
+            const taskData = {
+                title: formData.get('taskTitle'),
+                description: formData.get('taskDescription'),
+                priority: formData.get('taskPriority'),
+                dueDate: formData.get('taskDueDate'),
+                category: formData.get('taskCategory'),
+                status: formData.get('taskStatus'),
+                tags: formData.get('taskTags'),
+                notes: formData.get('taskNotes'),
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(taskData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'task-export.json';
+            link.click();
+
+            showSuccessToast('Task exported successfully!');
+        }
+
+        // Success toast
+        function showSuccessToast(message = 'Task updated successfully!') {
+            const toast = document.getElementById('successToast');
+            toast.querySelector('span').textContent = message;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function (event) {
+            const deleteModal = document.getElementById('deleteModal');
+            const unsavedModal = document.getElementById('unsavedModal');
+
+            if (event.target === deleteModal) {
+                hideDeleteConfirmation();
+            }
+            if (event.target === unsavedModal) {
+                hideUnsavedModal();
+            }
+        });
+    </script>
+    <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+
+</html>

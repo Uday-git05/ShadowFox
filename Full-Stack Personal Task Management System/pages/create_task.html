@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task - TaskFlow Manager</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script type="module"
+        src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftaskflowm4073back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"></script>
+    <script type="module" src="https://static.rocket.new/rocket-shot.js?v=0.0.1"></script>
+</head>
+
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h1 class="ml-3 text-xl font-semibold text-gray-900">TaskFlow Manager</h1>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="task_dashboard.html"
+                        class="text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">Dashboard</a>
+                    <a href="create_task.html"
+                        class="text-primary font-medium px-3 py-2 rounded-md bg-primary-50">Create Task</a>
+                    <a href="task_statistics.html"
+                        class="text-gray-600 hover:text-primary px-3 py-2 rounded-md hover:bg-gray-50 transition-colors">Statistics</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-600 hover:text-primary p-2" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="task_dashboard.html"
+                    class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md">Dashboard</a>
+                <a href="create_task.html"
+                    class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Create Task</a>
+                <a href="task_statistics.html"
+                    class="block px-3 py-2 text-gray-600 hover:text-primary hover:bg-gray-50 rounded-md">Statistics</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center mb-2">
+                <a href="task_dashboard.html" class="text-gray-500 hover:text-primary transition-colors mr-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h2 class="text-2xl font-semibold text-gray-900">Create New Task</h2>
+            </div>
+            <p class="text-gray-600">Add a new task to your workflow and stay organized with your goals.</p>
+        </div>
+
+        <!-- Task Creation Form -->
+        <div class="bg-white rounded-lg shadow-task border border-gray-200">
+            <form id="createTaskForm" class="p-6 space-y-6">
+                <!-- Essential Information Section -->
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Essential Information</h3>
+                    </div>
+
+                    <!-- Task Title -->
+                    <div>
+                        <label for="taskTitle" class="block text-sm font-medium text-gray-700 mb-2">
+                            Task Title <span class="text-error">*</span>
+                        </label>
+                        <input type="text" id="taskTitle" name="taskTitle" class="form-input"
+                            placeholder="Enter a clear and descriptive task title" required>
+                        <div id="titleError" class="hidden mt-1 text-sm text-error">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            Task title is required
+                        </div>
+                    </div>
+
+                    <!-- Task Description -->
+                    <div>
+                        <label for="taskDescription" class="block text-sm font-medium text-gray-700 mb-2">
+                            Description
+                        </label>
+                        <textarea id="taskDescription" name="taskDescription" rows="4" class="form-input resize-none"
+                            placeholder="Provide detailed information about the task, including objectives, requirements, and any relevant context..."></textarea>
+                        <div class="mt-1 text-xs text-gray-500">
+                            <span id="descriptionCount">0</span>/500 characters
+                        </div>
+                    </div>
+
+                    <!-- Priority and Due Date Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Priority Selection -->
+                        <div>
+                            <label for="taskPriority" class="block text-sm font-medium text-gray-700 mb-2">
+                                Priority Level <span class="text-error">*</span>
+                            </label>
+                            <select id="taskPriority" name="taskPriority" class="form-input" required>
+                                <option value="">Select priority level</option>
+                                <option value="high">🔴 High Priority</option>
+                                <option value="medium">🟡 Medium Priority</option>
+                                <option value="low">🟢 Low Priority</option>
+                            </select>
+                            <div id="priorityError" class="hidden mt-1 text-sm text-error">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                Please select a priority level
+                            </div>
+                        </div>
+
+                        <!-- Due Date -->
+                        <div>
+                            <label for="taskDueDate" class="block text-sm font-medium text-gray-700 mb-2">
+                                Due Date <span class="text-error">*</span>
+                            </label>
+                            <div class="relative">
+                                <input type="date" id="taskDueDate" name="taskDueDate" class="form-input pr-10"
+                                    required>
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-calendar-alt text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div id="dueDateError" class="hidden mt-1 text-sm text-error">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                Please select a valid future date
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Selection -->
+                    <div>
+                        <label for="taskCategory" class="block text-sm font-medium text-gray-700 mb-2">
+                            Category
+                        </label>
+                        <select id="taskCategory" name="taskCategory" class="form-input">
+                            <option value="">Select a category (optional)</option>
+                            <option value="work">💼 Work</option>
+                            <option value="personal">👤 Personal</option>
+                            <option value="study">📚 Study</option>
+                            <option value="health">🏥 Health</option>
+                            <option value="finance">💰 Finance</option>
+                            <option value="home">🏠 Home</option>
+                            <option value="social">👥 Social</option>
+                            <option value="creative">🎨 Creative</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Advanced Options Section -->
+                <div class="space-y-6">
+                    <div class="border-t border-gray-200 pt-6">
+                        <button type="button" id="toggleAdvanced"
+                            class="flex items-center justify-between w-full text-left"
+                            onclick="toggleAdvancedOptions()">
+                            <h3 class="text-lg font-medium text-gray-900">Advanced Options</h3>
+                            <i id="advancedIcon" class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div id="advancedOptions" class="hidden space-y-6">
+                        <!-- Task Notes -->
+                        <div>
+                            <label for="taskNotes" class="block text-sm font-medium text-gray-700 mb-2">
+                                Additional Notes
+                            </label>
+                            <textarea id="taskNotes" name="taskNotes" rows="3" class="form-input resize-none"
+                                placeholder="Add any additional notes, references, or context that might be helpful..."></textarea>
+                        </div>
+
+                        <!-- Estimated Time and Reminder Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Estimated Completion Time -->
+                            <div>
+                                <label for="estimatedTime" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Estimated Time
+                                </label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="estimatedHours" name="estimatedHours"
+                                        class="form-input flex-1" placeholder="Hours" min="0" max="999">
+                                    <input type="number" id="estimatedMinutes" name="estimatedMinutes"
+                                        class="form-input flex-1" placeholder="Minutes" min="0" max="59">
+                                </div>
+                                <div class="mt-1 text-xs text-gray-500">
+                                    Optional: Help track your productivity
+                                </div>
+                            </div>
+
+                            <!-- Reminder Settings -->
+                            <div>
+                                <label for="reminderTime" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Reminder
+                                </label>
+                                <select id="reminderTime" name="reminderTime" class="form-input">
+                                    <option value="">No reminder</option>
+                                    <option value="15">15 minutes before</option>
+                                    <option value="30">30 minutes before</option>
+                                    <option value="60">1 hour before</option>
+                                    <option value="1440">1 day before</option>
+                                    <option value="10080">1 week before</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tags Input -->
+                        <div>
+                            <label for="taskTags" class="block text-sm font-medium text-gray-700 mb-2">
+                                Tags
+                            </label>
+                            <input type="text" id="taskTags" name="taskTags" class="form-input"
+                                placeholder="Enter tags separated by commas (e.g., urgent, meeting, review)">
+                            <div class="mt-1 text-xs text-gray-500">
+                                Use tags to organize and filter your tasks more effectively
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
+                        <!-- Cancel Button -->
+                        <button type="button" onclick="cancelTask()"
+                            class="w-full sm:w-auto px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors font-medium">
+                            Cancel
+                        </button>
+
+                        <!-- Save & Add Another Button -->
+                        <button type="button" onclick="saveAndAddAnother()" class="w-full sm:w-auto btn-secondary">
+                            <i class="fas fa-plus mr-2"></i>Save & Add Another
+                        </button>
+
+                        <!-- Save Task Button -->
+                        <button type="submit" class="w-full sm:w-auto btn-primary">
+                            <i class="fas fa-check mr-2"></i>Save Task
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden mt-6 bg-success-50 border border-success-200 rounded-lg p-4">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-success text-lg"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-success-800">Task Created Successfully!</h3>
+                    <p class="text-sm text-success-700 mt-1">Your new task has been added to your dashboard.</p>
+                </div>
+                <div class="ml-auto">
+                    <button onclick="hideSuccessMessage()" class="text-success-600 hover:text-success-800">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Advanced options toggle
+        function toggleAdvancedOptions() {
+            const options = document.getElementById('advancedOptions');
+            const icon = document.getElementById('advancedIcon');
+
+            options.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Form validation functions
+        function validateTitle() {
+            const title = document.getElementById('taskTitle');
+            const error = document.getElementById('titleError');
+
+            if (!title.value.trim()) {
+                error.classList.remove('hidden');
+                title.classList.add('border-error', 'focus:ring-error');
+                return false;
+            } else {
+                error.classList.add('hidden');
+                title.classList.remove('border-error', 'focus:ring-error');
+                return true;
+            }
+        }
+
+        function validatePriority() {
+            const priority = document.getElementById('taskPriority');
+            const error = document.getElementById('priorityError');
+
+            if (!priority.value) {
+                error.classList.remove('hidden');
+                priority.classList.add('border-error', 'focus:ring-error');
+                return false;
+            } else {
+                error.classList.add('hidden');
+                priority.classList.remove('border-error', 'focus:ring-error');
+                return true;
+            }
+        }
+
+        function validateDueDate() {
+            const dueDate = document.getElementById('taskDueDate');
+            const error = document.getElementById('dueDateError');
+            const today = new Date().toISOString().split('T')[0];
+
+            if (!dueDate.value || dueDate.value < today) {
+                error.classList.remove('hidden');
+                dueDate.classList.add('border-error', 'focus:ring-error');
+                return false;
+            } else {
+                error.classList.add('hidden');
+                dueDate.classList.remove('border-error', 'focus:ring-error');
+                return true;
+            }
+        }
+
+        // Character counter for description
+        function updateDescriptionCounter() {
+            const description = document.getElementById('taskDescription');
+            const counter = document.getElementById('descriptionCount');
+            const count = description.value.length;
+
+            counter.textContent = count;
+
+            if (count > 500) {
+                counter.classList.add('text-error');
+                description.classList.add('border-error');
+            } else {
+                counter.classList.remove('text-error');
+                description.classList.remove('border-error');
+            }
+        }
+
+        // Form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const isValidTitle = validateTitle();
+            const isValidPriority = validatePriority();
+            const isValidDueDate = validateDueDate();
+
+            if (isValidTitle && isValidPriority && isValidDueDate) {
+                // Simulate saving task
+                const formData = new FormData(event.target);
+                const taskData = Object.fromEntries(formData.entries());
+
+                // Add timestamp
+                taskData.createdAt = new Date().toISOString();
+                taskData.id = Date.now(); // Simple ID generation
+
+                console.log('Task created:', taskData);
+
+                // Show success message
+                showSuccessMessage();
+
+                // Reset form
+                event.target.reset();
+                updateDescriptionCounter();
+
+                // Redirect to dashboard after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'task_dashboard.html';
+                }, 2000);
+            }
+        }
+
+        // Save and add another task
+        function saveAndAddAnother() {
+            const form = document.getElementById('createTaskForm');
+            const isValidTitle = validateTitle();
+            const isValidPriority = validatePriority();
+            const isValidDueDate = validateDueDate();
+
+            if (isValidTitle && isValidPriority && isValidDueDate) {
+                // Simulate saving task
+                const formData = new FormData(form);
+                const taskData = Object.fromEntries(formData.entries());
+                taskData.createdAt = new Date().toISOString();
+                taskData.id = Date.now();
+
+                console.log('Task created:', taskData);
+
+                // Show success message briefly
+                showSuccessMessage();
+
+                // Reset form for next task
+                form.reset();
+                updateDescriptionCounter();
+
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    hideSuccessMessage();
+                }, 3000);
+            }
+        }
+
+        // Cancel task creation
+        function cancelTask() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = 'task_dashboard.html';
+            }
+        }
+
+        // Success message functions
+        function showSuccessMessage() {
+            const message = document.getElementById('successMessage');
+            message.classList.remove('hidden');
+            message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function hideSuccessMessage() {
+            const message = document.getElementById('successMessage');
+            message.classList.add('hidden');
+        }
+
+        // Set minimum date to today
+        function setMinDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('taskDueDate').setAttribute('min', today);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set minimum date
+            setMinDate();
+
+            // Add form event listeners
+            const form = document.getElementById('createTaskForm');
+            form.addEventListener('submit', handleFormSubmit);
+
+            // Add real-time validation
+            document.getElementById('taskTitle').addEventListener('blur', validateTitle);
+            document.getElementById('taskPriority').addEventListener('change', validatePriority);
+            document.getElementById('taskDueDate').addEventListener('change', validateDueDate);
+
+            // Add description counter
+            document.getElementById('taskDescription').addEventListener('input', updateDescriptionCounter);
+
+            // Initialize counter
+            updateDescriptionCounter();
+
+            // Add input validation styling
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.classList.add('ring-2', 'ring-primary-500');
+                });
+
+                input.addEventListener('blur', function () {
+                    this.classList.remove('ring-2', 'ring-primary-500');
+                });
+            });
+        });
+    </script>
+    <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+
+</html>
